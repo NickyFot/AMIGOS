@@ -65,8 +65,8 @@ def main(dir_path, dst_dir_path, class_name):
                 continue
             segment_strt = seconds_to_strtime(segments[idx][0])
             segment_end = seconds_to_strtime(segments[idx][1])
-            # -vsync 0 -hwaccel cuvid -c:v h264_cuvid -vf hwdownload,format=nv12 # gpu flags
-            cmd = 'ffmpeg -vsync 0 -hwaccel cuvid -c:v h264_cuvid -accurate_seek -ss \"{}\" -to \"{}\" -i \"{}\" -vf hwdownload,format=nv12,hwupload  -q:v 5 -f image2 \"{}/image_%05d.jpg\"'.format(segment_strt, segment_end, video_file_path, dst_directory_path)
+            # -vsync 0 -hwaccel cuvid -c:v h264_cuvid -vf hwdownload,format=nv12,hwupload # gpu flags
+            cmd = 'ffmpeg -ss \"{}\" -to \"{}\" -i \"{}\" -q:v 5 -f image2 \"{}/image_%05d.jpg\"'.format(segment_strt, segment_end, video_file_path, dst_directory_path)
             print(cmd)
             subprocess.call(cmd, shell=True)
             print('\n')
