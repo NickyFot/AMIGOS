@@ -1,12 +1,11 @@
 import os
-import subprocess
+import sys
 import logging
-import json
 
 logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
-    for root, dirs, filenames in os.walk('/home/niki/Datasets/AMIGOS/Videos/'):
+    for root, dirs, filenames in os.walk(sys.argv[1]):
         for filename in filenames:
             filename = os.path.join(root, filename)
             if not filename.endswith('.zip'):

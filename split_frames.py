@@ -7,6 +7,13 @@ import typing
 
 
 def probe_file(filename: str) -> float:
+    """Get the length of a video in seconds
+    Args:
+        filename (str): the path to the video file
+    Returns:
+        the length of the video in seconds (float)
+
+    """
     cmnd = ['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', filename]
     p = subprocess.Popen(cmnd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print(filename)
@@ -15,6 +22,26 @@ def probe_file(filename: str) -> float:
 
 
 def get_segments(duration: float) -> typing.List[tuple]:
+    """Get the start and end timestamp in seconds, of the AMIGOS video.
+
+    Each of the videos were split into 20 second clips. For this, the first 20 seconds of each video, including 5 seconds
+     prior to the presentation of the stimuli, were extracted as first clip, then, starting from the 5s of the video
+     (instant in which the stimuli started), n = ⌊(D)/(20s)⌋ non overlapping segments of 20s were extracted,
+     with D being the duration of the stimuli video in seconds.
+     Finally, the last 20 seconds of the video were extracted as final clip.
+     eg. for an 85s clip
+     #1: 0-20s
+     #2: 5-25
+     #3: seconds 20-40
+    #4: seconds 40-60
+    #5: seconds 60-80
+    #6: seconds 65-85 (the last 20 seconds of the video)
+
+    Args:
+        duration (float): duration of a clip in seconds
+    Returns:
+        A list of tuples with the start and end second of each segment.
+    """
     seg0: tuple = (0, 20)
     segments = [seg0]
     for step in range(5, int(duration), 20):
@@ -25,6 +52,7 @@ def get_segments(duration: float) -> typing.List[tuple]:
 
 
 def seconds_to_strtime(seconds: float) -> str:
+    """Formats a float representing seconds to str timestamp"""
     return str(datetime.timedelta(seconds=seconds))
 
 
@@ -44,11 +72,6 @@ def main(dir_path, dst_dir_path, class_name):
         video_len = probe_file(os.path.join(*[class_path, file_name]))
         segments = get_segments(video_len)
         video_file_path = os.path.join(class_path, file_name)
-        # video_path, ext = video_file_path.split('.')
-        # video_file_path = video_file_path.replace(ext, '264')
-        # if not os.path.isfile(video_file_path):
-        #     transform = 'ffmpeg -i {0}.{1} -c copy {0}.264'.format(video_path, ext)
-        #     subprocess.call(transform, shell=True)
         for idx in range(len(segments)):
             dst_directory_path = os.path.join(*[dst_class_path, name, str(idx+1)])
             if not os.path.exists(dst_directory_path):
