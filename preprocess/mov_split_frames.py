@@ -25,14 +25,14 @@ def get_segments(duration: float) -> typing.List[tuple]:
     """Get the start and end timestamp in seconds, of the AMIGOS video.
 
     Each of the videos were split into 20 second clips. For this, the first 20 seconds of each video, including 5 seconds
-     prior to the presentation of the stimuli, were extracted as first clip, then, starting from the 5s of the video
-     (instant in which the stimuli started), n = ⌊(D)/(20s)⌋ non overlapping segments of 20s were extracted,
-     with D being the duration of the stimuli video in seconds.
-     Finally, the last 20 seconds of the video were extracted as final clip.
-     eg. for an 85s clip
-     #1: 0-20s
-     #2: 5-25
-     #3: seconds 20-40
+    prior to the presentation of the stimuli, were extracted as first clip, then, starting from the 5s of the video
+    (instant in which the stimuli started), n = ⌊(D)/(20s)⌋ non overlapping segments of 20s were extracted,
+    with D being the duration of the stimuli video in seconds.
+    Finally, the last 20 seconds of the video were extracted as final clip.
+    eg. for an 85s clip
+    #1: 0-20s
+    #2: 5-25
+    #3: seconds 20-40
     #4: seconds 40-60
     #5: seconds 60-80
     #6: seconds 65-85 (the last 20 seconds of the video)

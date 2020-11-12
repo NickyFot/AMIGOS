@@ -4,3 +4,4 @@ Frames/
 index.html
 .idea/
 login.json
+__pycache__/

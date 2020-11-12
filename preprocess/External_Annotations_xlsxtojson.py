@@ -19,4 +19,4 @@ if __name__ == "__main__":
         usr_segs = usr_vids[element[1]['VideoID']]['Segments']
         if element[1]['Segment_Index'] not in usr_segs:
             usr_segs[element[1]['Segment_Index']] = {'Arousal': arousal_anot.tolist(), 'Valence': valence_anot.tolist()}
-    json.dump(data, open('amigos.json', 'w'), indent=4)
+    json.dump(data, open('../amigos.json', 'w'), indent=4)
