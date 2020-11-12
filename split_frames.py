@@ -65,7 +65,7 @@ def main(dir_path, dst_dir_path, class_name):
                 continue
             segment_strt = segments[idx][0]
             segment_end = segments[idx][1]
-            cmd = 'ffmpeg  -i \"{}\" -vf trim={}:{} -q:v 5 -f image2 \"{}/image_%05d.jpg\"'.format(video_file_path, segment_strt, segment_end, dst_directory_path)
+            cmd = 'ffmpeg -i \"{}\" -vf trim={}:{},setpts=PTS-STARTPTS -q:v 5 -f image2 \"{}/image_%05d.jpg\"'.format(video_file_path, segment_strt, segment_end, dst_directory_path)
             print(cmd)
             subprocess.call(cmd, shell=True)
             print('\n')
