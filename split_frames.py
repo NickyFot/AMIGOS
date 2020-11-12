@@ -45,10 +45,10 @@ def main(dir_path, dst_dir_path, class_name):
         segments = get_segments(video_len)
         video_file_path = os.path.join(class_path, file_name)
         video_path, ext = video_file_path.split('.')
-        video_file_path = video_file_path.replace(ext, '264')
-        if not os.path.isfile(video_file_path):
-            transform = 'ffmpeg -i {0}.{1} -c copy {0}.264'.format(video_path, ext)
-            subprocess.call(transform, shell=True)
+        # video_file_path = video_file_path.replace(ext, '264')
+        # if not os.path.isfile(video_file_path):
+        #     transform = 'ffmpeg -i {0}.{1} -c copy {0}.264'.format(video_path, ext)
+        #     subprocess.call(transform, shell=True)
         for idx in range(len(segments)):
             dst_directory_path = os.path.join(*[dst_class_path, name, str(idx+1)])
             if not os.path.exists(dst_directory_path):
