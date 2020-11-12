@@ -1,1 +1,1 @@
-from amigos_dataset import AMIGOS
+from .amigos_dataset import AMIGOS

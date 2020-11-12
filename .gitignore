@@ -1,6 +1,7 @@
 venv/
 Data/
 Frames/
+TEST/
 index.html
 .idea/
 login.json

@@ -56,6 +56,7 @@ def get_video_names_and_annotations(data_dict: dict, subset: str = None) -> tupl
     videonames_lst = list()
     annotations_lst = list()
     for pidx, videos in data_dict.items():
+        # TODO: see how to handle subset
         # if subset:
         #     if not data_dict[pidx]['subset'] == subset:
         #         continue

@@ -12,4 +12,3 @@ if __name__ == '__main__':
     print(len(amigos))
     sample = amigos[0]
     print(sample[0].shape, sample[1].shape)
-
