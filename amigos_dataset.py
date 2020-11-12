@@ -9,7 +9,6 @@ class AMIGOS(data.Dataset):
             self,
             root_path: str,
             annotation_path: str,
-            subset: str = None,
             spatial_transform: callable = None,
             temporal_transform: callable = None,
             target_transform: callable = None,
@@ -19,7 +18,6 @@ class AMIGOS(data.Dataset):
         self.data = self._make_dataset(
             root_path,
             annotation_path,
-            subset,
             file_extension='.jpg' if feature_type == FEATURES[-1] else '.json'
         )
         self.spatial_transform = spatial_transform
@@ -55,11 +53,10 @@ class AMIGOS(data.Dataset):
     def _make_dataset(
             root_path: str,
             annotation_path: str,
-            subset: str = None,
             file_extension: str = '.json'
     ) -> list:
         dataset = load_annotation_data(annotation_path)
-        video_names, annotations = get_video_names_and_annotations(dataset, subset)
+        video_names, annotations = get_video_names_and_annotations(dataset)
         filenames = get_file_names(root_path, file_extension)
         if file_extension == '.jpg':
             filenames = list(set([os.path.dirname(x) for x in filenames]))

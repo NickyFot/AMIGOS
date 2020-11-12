@@ -52,14 +52,10 @@ def load_annotation_data(data_file_path: str) -> dict:
         return json.load(data_file)
 
 
-def get_video_names_and_annotations(data_dict: dict, subset: str = None) -> tuple:
+def get_video_names_and_annotations(data_dict: dict) -> tuple:
     videonames_lst = list()
     annotations_lst = list()
     for pidx, videos in data_dict.items():
-        # TODO: see how to handle subset
-        # if subset:
-        #     if not data_dict[pidx]['subset'] == subset:
-        #         continue
         for sti_idx, segments in videos['Videos'].items():
             for seg_idx, annotation in segments['Segments'].items():
                 video_key = "P{p_idx}_{sti_idx}_{seg_idx}".format(p_idx=pidx, sti_idx=sti_idx, seg_idx=seg_idx)
