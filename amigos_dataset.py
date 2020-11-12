@@ -5,6 +5,18 @@ from utils import *
 
 
 class AMIGOS(data.Dataset):
+    """Class to handle AMIGOS Dataset.
+
+    A class to handle and get video data from the AMIGOS dataset.
+        Typical usage example:
+        amigos = AMIGOS(
+        root_path=<path_to_dataset>,
+        annotation_path='amigos.json',
+        spatial_transform=transforms.ToTensor(),
+        feature_type='RGB'
+    )
+
+    """
     def __init__(
             self,
             root_path: str,
@@ -12,9 +24,20 @@ class AMIGOS(data.Dataset):
             spatial_transform: callable = None,
             temporal_transform: callable = None,
             target_transform: callable = None,
-            fn_get_loader: callable = get_loader,
             feature_type: str = None
     ):
+        """
+        Dataset constructor
+        :param root_path: (str) path to content root
+        :param annotation_path: (str) path to annotations file
+        :param spatial_transform: (callable) transformation to apply to each frame
+        :param temporal_transform: (callable) transformation to apply to clip
+        :param target_transform: (callable) transformation to apply to target
+        :param feature_type: (str) feature type to return Options: Meta, RGB
+        :returns AMIGOS Dataset object
+        """
+        if feature_type not in FEATURES:
+            raise NotImplemented('Feature type not implemented')
         self.data = self._make_dataset(
             root_path,
             annotation_path,
@@ -23,7 +46,7 @@ class AMIGOS(data.Dataset):
         self.spatial_transform = spatial_transform
         self.temporal_transform = temporal_transform
         self.target_transform = target_transform
-        self.loader = fn_get_loader(feature_type)
+        self.loader = get_loader(feature_type)
         self.labels = [x['label'] for x in self.data]
         self.indices = list(range(0, len(self.data)))
 

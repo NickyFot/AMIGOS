@@ -5,7 +5,7 @@ import functools
 import json
 
 
-FEATURES = ['AUs', 'PE', 'RGB']
+FEATURES = ['Meta', 'RGB']
 
 
 def pil_loader(path: str):
