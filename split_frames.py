@@ -44,6 +44,10 @@ def main(dir_path, dst_dir_path, class_name):
         video_len = probe_file(os.path.join(*[class_path, file_name]))
         segments = get_segments(video_len)
         video_file_path = os.path.join(class_path, file_name)
+        video_path, ext = video_file_path.split('.')
+        transform = 'ffmpeg -i {0}.{1} -c copy {0}.264'.format(video_path, ext)
+        subprocess.call(transform, shell=True)
+        video_file_path = video_file_path.replace(ext, '264')
         for idx in range(len(segments)):
             dst_directory_path = os.path.join(*[dst_class_path, name, str(idx+1)])
             if not os.path.exists(dst_directory_path):
@@ -61,7 +65,7 @@ def main(dir_path, dst_dir_path, class_name):
             segment_strt = seconds_to_strtime(segments[idx][0])
             segment_end = seconds_to_strtime(segments[idx][1])
             # -vsync 0 -hwaccel cuvid -c:v h264_cuvid -vf hwdownload,format=nv12 # gpu flags
-            cmd = 'ffmpeg -accurate_seek -ss \"{}\" -to \"{}\" -i \"{}\"  -q:v 5 -f image2 \"{}/image_%05d.jpg\"'.format(segment_strt, segment_end, video_file_path, dst_directory_path)
+            cmd = 'ffmpeg -vsync 0 -hwaccel cuvid -c:v h264_cuvid -accurate_seek -ss \"{}\" -to \"{}\" -i \"{}\" -vf hwdownload,format=nv12  -q:v 5 -f image2 \"{}/image_%05d.jpg\"'.format(segment_strt, segment_end, video_file_path, dst_directory_path)
             print(cmd)
             subprocess.call(cmd, shell=True)
             print('\n')
