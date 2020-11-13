@@ -10,4 +10,4 @@ if __name__ == "__main__":
             filename = os.path.join(root, filename)
             if not filename.endswith('.zip'):
                 continue
-            os.system("7za x " + filename + ' -aos')
+            os.system("7za x " + filename + f' -aoa -o{sys.argv[2]}')
