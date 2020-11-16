@@ -123,7 +123,7 @@ def main(root_path, dst_dir, class_name):
             print('\n')
 
 
-# main('Data', 'Frames', 'Exp1_P17_face')
+# main('Data', 'Frames', 'Exp1_P17_face')  # debug line
 if __name__ == "__main__":
     dir_path = sys.argv[1]
     dst_dir_path = sys.argv[2]
