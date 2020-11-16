@@ -27,7 +27,11 @@ def probe_file(filename: str) -> float:
     p = subprocess.Popen(cmnd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print(filename)
     out, err = p.communicate()
-    return float(out)
+    if out:
+        return float(out)
+    else:
+        print(err)
+        return
 
 
 def get_segments(duration: float) -> typing.List[tuple]:
@@ -79,6 +83,8 @@ def main(root_path, dst_dir, class_name):
             continue
         name, ext = os.path.splitext(file_name)
         video_len = probe_file(os.path.join(*[class_path, file_name]))
+        if not video_len:
+            continue
         segments = get_segments(video_len)
         video_file_path = os.path.join(class_path, file_name)
         for idx in range(len(segments)):
