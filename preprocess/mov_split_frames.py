@@ -110,7 +110,7 @@ def main(root_path, dst_dir, class_name):
                 '-i',
                 f'\"{video_file_path}\"',
                 '-vf',
-                f'trim={segment_strt}:{segment_end},setpts=PTS-STARTPTS',
+                f'trim={segment_strt}:{segment_end},setpts=PTS-STARTPTS,fps=25',
                 '-q:v',
                 '5',
                 '-f',
