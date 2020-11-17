@@ -17,7 +17,7 @@ def pil_loader(path: str):
 def json_loader(video_dir_path: str, file_loader: callable) -> list:
     raw_video = file_loader(open(video_dir_path))['features']
     frame_indices = len(raw_video)
-    frames = [raw_video.get(str(key)) for key in range(frame_indices)]
+    frames = [raw_video.get(str(key)) for key in range(1, frame_indices+1)]
     return frames
 
 

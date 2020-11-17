@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 from torch import nn
 
@@ -5,6 +6,15 @@ from torch import nn
 class AnnotatorsAverage(object):
     def __call__(self, x: torch.Tensor):
         return torch.mean(x, dim=1)
+
+
+class ColumnSelect(object):
+    def __init__(self, keys: list):
+        self.keys = keys
+
+    def __call__(self, feats: dict):
+        feats = np.array([feats.get(key) for key in self.keys])
+        return feats
 
 
 def images_collate(batch):
