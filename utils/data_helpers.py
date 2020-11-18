@@ -1,6 +1,8 @@
 import numpy as np
 import torch
 
+np.random.seed(42)  # setting seed for consistency
+
 
 def get_subject_idx(data: list) -> list:
     subjects = set()
