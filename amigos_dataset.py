@@ -1,7 +1,6 @@
-import torch
 from torch.utils import data
 
-from utils import *
+from .utils import *
 
 
 class AMIGOS(data.Dataset):
