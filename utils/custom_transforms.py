@@ -19,7 +19,7 @@ class ColumnSelect(object):
 
 class FlattenLabels(object):
     def __call__(self, x: torch.Tensor):
-        return torch.reshape(-1)
+        return x.reshape(-1)
 
 
 def images_collate(batch):
