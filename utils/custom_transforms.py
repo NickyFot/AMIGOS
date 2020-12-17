@@ -17,6 +17,11 @@ class ColumnSelect(object):
         return feats
 
 
+class FlattenLabels(object):
+    def __call__(self, x: torch.Tensor):
+        return torch.reshape(-1)
+
+
 def images_collate(batch):
     x_data = [item[0] for item in batch]
     target = [item[1] for item in batch]
