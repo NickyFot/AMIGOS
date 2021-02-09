@@ -8,6 +8,18 @@ class AnnotatorsAverage(object):
         return torch.mean(x, dim=1)
 
 
+class AnnotatorsAverageClean(object):
+    def __call__(self, x: torch.Tensor):
+        avg = torch.mean(x, dim=1).unsqueeze(1)
+        dist = torch.sub(x, avg)
+        idx = torch.argmax(dist, dim=1)
+
+        y = [torch.cat((x[i][:idx[i]], x[i][idx[i]+1:])) for i in range(x.size(0))]
+        y = torch.vstack(y)
+        y = torch.mean(y, dim=1)
+        return y
+
+
 class ColumnSelect(object):
     def __init__(self, keys: list):
         self.keys = keys
