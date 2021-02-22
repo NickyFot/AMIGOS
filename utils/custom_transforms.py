@@ -1,4 +1,5 @@
 import numpy as np
+import itertools
 import torch
 from torch import nn
 
@@ -18,6 +19,16 @@ class AnnotatorsAverageClean(object):
         y = torch.vstack(y)
         y = torch.mean(y, dim=1)
         return y
+
+
+class AnnotatorsDistance(object):
+    def __call__(self, x: torch.Tensor):
+        annot = x.size(1)
+        perm = itertools.combinations(range(annot), 2)
+        darray = [torch.abs(torch.sub(x[:, p[0]], x[:, p[1]])) for p in perm]
+        darray = torch.vstack(darray)
+        darray = torch.mean(darray, dim=0)
+        return darray
 
 
 class ColumnSelect(object):
