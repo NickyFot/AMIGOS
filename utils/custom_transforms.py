@@ -31,6 +31,11 @@ class AnnotatorsDistance(object):
         return darray
 
 
+class AnnotatorsVar(object):
+    def __call__(self, x: torch.Tensor):
+        return torch.var(x, dim=1)
+
+
 class ColumnSelect(object):
     def __init__(self, keys: list):
         self.keys = keys
