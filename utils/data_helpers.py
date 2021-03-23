@@ -27,6 +27,9 @@ def rnd_train_test(data: list, ratio: float) -> tuple:
     np.random.shuffle(subject_idx)
     threshold = int(len(subject_idx)*ratio)
     train_subject, test_subject = subject_idx[:threshold], subject_idx[threshold:]
+
+    assert len([value for value in train_subject if value in test_subject]) == 0
+
     train_idx = get_indices_in_set(data, train_subject)
     test_idx = get_indices_in_set(data, test_subject)
     return train_idx, test_idx
