@@ -36,6 +36,13 @@ class AnnotatorsVar(object):
         return torch.var(x, dim=1)
 
 
+class AnnotatorsVarMean(object):
+    def __call__(self, x: torch.Tensor):
+        var, mean = torch.var_mean(x, dim=1)
+        lab = torch.stack([var, mean])
+        return lab
+
+
 class ColumnSelect(object):
     def __init__(self, keys: list):
         self.keys = keys
